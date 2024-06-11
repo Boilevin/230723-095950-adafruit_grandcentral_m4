@@ -657,6 +657,7 @@ void Map::clearMap(){
  
 // set point
 bool Map::setPoint(int idx, float x, float y){  
+  watchdogReset(); 
   if ((memoryCorruptions != 0) || (memoryAllocErrors != 0)){
     CONSOLE.println("ERROR setPoint: memory errors");
     return false; 

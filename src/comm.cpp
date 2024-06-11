@@ -90,7 +90,7 @@ void cmdTuneParam(){
           CONSOLE.print("=");
           CONSOLE.println(floatValue);    
           switch (paramIdx){
-            case 0: 
+           case 0: 
               stanleyTrackingNormalP = floatValue;
               break;
             case 1:
@@ -102,6 +102,7 @@ void cmdTuneParam(){
             case 3: 
               stanleyTrackingSlowK = floatValue;
               break;
+            //odometry setting
             case 4:
               motor.ticksPerRevolution = int(floatValue);
               break;
@@ -112,15 +113,46 @@ void cmdTuneParam(){
               motor.wheelDiameter = int(floatValue);
               break;
             case 7:
+              //free
+              break;
+            case 8:
+              battery.startChargingIfBelow = floatValue;
+              break;
+            case 9:
+            // switch off battery if idle (seconds)
+              battery.batSwitchOffIfIdle = int(floatValue);
+              battery.resetIdle(); 
+              break;
+            case 10:
+              battery.batFullCurrent = floatValue;
+              break;
+            case 11:
+            //go home voltage
+              battery.batGoHomeIfBelow = floatValue;
+              break;
+            case 12:
+            //minimum voltage to protect batterie
+              battery.batSwitchOffIfBelow = floatValue;
+              break;
+            case 13:
+             //start mow if charge OK at 
+             //battery.
+              break;
+            case 14:
+              setDockingSpeed = int(floatValue);
+              break;
+
+            case 20:
               motor.pwmMaxMow = int(floatValue);
               break;
-            //battery setting
-            case 8:
-              battery.startChargingIfBelow = int(floatValue);
+            case 21:
+              motor.pwmMinMow = int(floatValue);
+              break;  
+            case 22:
+              motor.motorMowfaultcurrent = floatValue; 
               break;
-            //speed setting
-            case 9:
-              setDockingSpeed = int(floatValue);
+            case 23:
+              motor.motorMowOverloadCurrent = floatValue;
               break;
 
           } 
@@ -565,6 +597,8 @@ void cmdReadMowPoints(){
   int EndIdx = 0;
   if (cmd.length() == 5){       // Only RM
     EndIdx = maps.mowPoints.numPoints;
+    CONSOLE.print("maps total mow point count : ");
+    CONSOLE.println(EndIdx);
   } else {                      // RM,StartIdx,NumberOfPoints,
     int counter = 0;
     int lastCommaIdx = 0;

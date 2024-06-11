@@ -442,11 +442,13 @@ void outputConfig(){
   #ifdef MAX_MOW_PWM
     CONSOLE.print("MAX_MOW_PWM: ");
     CONSOLE.println(MAX_MOW_PWM);
+    CONSOLE.print("MIN_MOW_PWM: ");
+    CONSOLE.println(motor.pwmMinMow);
   #endif
   CONSOLE.print("MOW_FAULT_CURRENT: ");
-  CONSOLE.println(MOW_FAULT_CURRENT);
+  CONSOLE.println(motor.motorMowfaultcurrent);
   CONSOLE.print("MOW_OVERLOAD_CURRENT: ");
-  CONSOLE.println(MOW_OVERLOAD_CURRENT);
+  CONSOLE.println(motor.motorMowOverloadCurrent);
   CONSOLE.print("ENABLE_OVERLOAD_DETECTION: ");
   CONSOLE.println(ENABLE_OVERLOAD_DETECTION);
   CONSOLE.print("ENABLE_FAULT_DETECTION: ");
@@ -475,15 +477,19 @@ void outputConfig(){
   CONSOLE.print("CURRENT_FACTOR: ");
   CONSOLE.println(CURRENT_FACTOR);
   CONSOLE.print("GO_HOME_VOLTAGE: ");
-  CONSOLE.println(GO_HOME_VOLTAGE);
+  CONSOLE.println(battery.batGoHomeIfBelow);
   CONSOLE.print("BAT_FULL_VOLTAGE: ");
   CONSOLE.println(BAT_FULL_VOLTAGE);
   CONSOLE.print("BAT_FULL_CURRENT: ");
-  CONSOLE.println(BAT_FULL_CURRENT);
+  CONSOLE.println(battery.batFullCurrent);
   CONSOLE.print("BAT_SWITCH_OFF_IDLE: ");
-  CONSOLE.println(BAT_SWITCH_OFF_IDLE);
+  CONSOLE.println(battery.batSwitchOffIfIdle);
   CONSOLE.print("BAT_SWITCH_OFF_UNDERVOLTAGE: ");
-  CONSOLE.println(BAT_SWITCH_OFF_UNDERVOLTAGE);
+  CONSOLE.println(battery.batSwitchOffIfBelow);
+  CONSOLE.print("BAT_START_CHARGING_VOLTAGE: ");
+  CONSOLE.println(battery.startChargingIfBelow);
+  
+  
   #ifdef GPS_USE_TCP
     CONSOLE.println("GPS_USE_TCP");
   #endif
@@ -1032,7 +1038,7 @@ void run(){
       stateButton = 0;  // reset button state
       stateSensor = SENS_STOP_BUTTON;
       setOperation(OP_IDLE, false);                             
-    } else if (stateButton == 9){
+    } else if (stateButton == 39){
       stateButton = 0;  // reset button state
       stateSensor = SENS_STOP_BUTTON;
       cmdSwitchOffRobot();

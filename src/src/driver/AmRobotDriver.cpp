@@ -694,6 +694,8 @@ void AmBatteryDriver::enableCharging(bool flag){
 
 void AmBatteryDriver::keepPowerOn(bool flag){
  if (!flag){ //power off need a delay to leave raspberry pi poweroff also
+      String s = F("Y3");
+      CONSOLE.println(s); //i don't know why but no feedback when sunray app send poweroff, so i add it here
       for (int i = 0; i < 30; i++)
       {
       delay(1000);

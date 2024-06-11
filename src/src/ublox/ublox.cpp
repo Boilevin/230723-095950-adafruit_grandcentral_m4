@@ -6,11 +6,11 @@
 #include "Arduino.h"
 #include "ublox.h"
 #include "../../config.h"
-#include "SparkFun_Ublox_Arduino_Library.h" 
+//#include "SparkFun_Ublox_Arduino_Library.h" 
+#include "SparkFun_u-blox_GNSS_v3.h" //Hartmut
 
-
-SFE_UBLOX_GPS configGPS; // used for f9p module configuration only
-
+//SFE_UBLOX_GPS configGPS; // used for f9p module configuration only
+SFE_UBLOX_GNSS_SERIAL configGPS; //Hartmut
 
 // used to send .ubx log files via 'sendgps.py' to Arduino (also set GPS to Serial in config for this)
 //#define GPS_DUMP   1    
@@ -241,8 +241,9 @@ bool UBLOX::configure(){
 
 void UBLOX::reboot(){
   CONSOLE.println("rebooting GPS receiver...");
-  //configGPS.hardReset();
-  configGPS.GNSSRestart();
+  //configGPS.GNSSRestart();
+  configGPS.softwareResetGNSSOnly(); //Hartmut: kein Reboot mehr
+  
 }
 
 void UBLOX::parse(int b)
