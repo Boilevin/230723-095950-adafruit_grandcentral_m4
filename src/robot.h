@@ -36,7 +36,7 @@
 #include "timetable.h"
 
 
-#define VER "Sunray,1.0.417"
+#define VER "Sunray,1.0.418"
 
 // operation types
 enum OperationType {
@@ -167,6 +167,9 @@ void triggerObstacle();
 void sensorTest();
 void updateStateOpText();
 void detectSensorMalfunction();
+void fanControl(bool rotate);
+void hornControl(bool noise);
+void outputConfig();
 bool detectLift();
 bool detectObstacle();
 bool detectObstacleRotation();

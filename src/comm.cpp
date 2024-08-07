@@ -103,55 +103,55 @@ void cmdTuneParam(){
               stanleyTrackingSlowK = floatValue;
               break;
             //odometry setting
-            case 4:
+            case 54:
               motor.ticksPerRevolution = int(floatValue);
               break;
-            case 5:
+            case 55:
               motor.wheelBaseCm = int(floatValue);
               break;
-            case 6:
+            case 56:
               motor.wheelDiameter = int(floatValue);
               break;
-            case 7:
+            case 57:
               //free
               break;
-            case 8:
+            case 58:
               battery.startChargingIfBelow = floatValue;
               break;
-            case 9:
+            case 59:
             // switch off battery if idle (seconds)
               battery.batSwitchOffIfIdle = int(floatValue);
               battery.resetIdle(); 
               break;
-            case 10:
+            case 60:
               battery.batFullCurrent = floatValue;
               break;
-            case 11:
+            case 61:
             //go home voltage
               battery.batGoHomeIfBelow = floatValue;
               break;
-            case 12:
+            case 62:
             //minimum voltage to protect batterie
               battery.batSwitchOffIfBelow = floatValue;
               break;
-            case 13:
+            case 63:
              //start mow if charge OK at 
              //battery.
               break;
-            case 14:
+            case 64:
               setDockingSpeed = int(floatValue);
               break;
 
-            case 20:
+            case 70:
               motor.pwmMaxMow = int(floatValue);
               break;
-            case 21:
+            case 71:
               motor.pwmMinMow = int(floatValue);
               break;  
-            case 22:
+            case 72:
               motor.motorMowfaultcurrent = floatValue; 
               break;
-            case 23:
+            case 73:
               motor.motorMowOverloadCurrent = floatValue;
               break;
 
@@ -1334,7 +1334,14 @@ void processCmd(bool checkCrc, bool decrypt){
     if (cmd[4] == '7') cmdHornStop();    
 
   } 
-  if (cmd[3] == 'Q') cmdMotorPlot();  
+  if (cmd[3] == 'Q') {
+    if (cmd.length() <= 4){
+      cmdMotorPlot(); 
+    } else {
+      if (cmd[4] == '1') outputConfig();
+    }    
+     
+  } 
   if (cmd[3] == 'O'){
     if (cmd.length() <= 4){
       cmdObstacle();   // for developers
